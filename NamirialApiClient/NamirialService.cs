@@ -56,6 +56,60 @@ namespace NamirialApiClient
 
         #endregion
 
+        #region API Related Actions
+
+        /// <summary>
+        ///     Returns Namirial Service Version 
+        /// </summary>
+        /// <returns>ServiceResponse</returns>
+        public ServiceResponse GetServiceVersion()
+        {
+            var apiResponseString = _signingService.GetVersion_v1();
+            var apiResponseObject = default(ApiCallResult<string>);
+
+            if (!string.IsNullOrWhiteSpace(apiResponseString))
+            {
+                apiResponseObject = ServiceMessageBase.Deserialize<ApiCallResult<string>>(apiResponseString);
+            }
+            
+            var response = CreateServiceResponse();
+            if (apiResponseObject == null)
+            {
+                response.AddErrorMessage(ErrorMessageDefiniton.NoServiceResponse);
+                return response;
+            }
+
+            if (apiResponseObject.BaseResult == ResultStatus.Failed)
+            {
+                if (apiResponseObject.Error != null) {
+                    response.AddErrorMessage(apiResponseObject.Error.Error, apiResponseObject.Error.ErrorMsg);
+                } else {
+                    response.AddErrorMessage(ErrorMessageDefiniton.NoErrorMessageProvided);
+                }
+
+                return response;
+            }
+
+            response.Result = apiResponseObject.OkInfo;
+
+            return response;
+        }
+
+        /// <summary>
+        ///     Validates Authorization Information
+        /// </summary>
+        /// <returns>ServiceResponse</returns>
+        public ServiceResponse ValidateAuthorization()
+        {
+            throw new NotImplementedException();
+            //var apiResponseString = _signingService.ValidateAuthorization_v1(_credentials);
+
+            //var response = CreateServiceResponse();
+            //return response;
+        }
+
+        #endregion
+
         #region Envelope Related Actions
 
         /// <summary>

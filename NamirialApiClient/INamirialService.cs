@@ -8,6 +8,18 @@ namespace NamirialApiClient
     public interface INamirialService
     {
         /// <summary>
+        ///     Returns Namirial Service Version
+        /// </summary>
+        /// <returns>ServiceResponse</returns>
+        ServiceResponse GetServiceVersion();
+
+        /// <summary>
+        ///     Validates Authorization Information
+        /// </summary>
+        /// <returns>ServiceResponse</returns>
+        ServiceResponse ValidateAuthorization();
+
+        /// <summary>
         ///     Cancels Envelope
         /// </summary>
         /// <param name="id">Envelope Id</param>
