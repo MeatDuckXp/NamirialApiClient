@@ -95,9 +95,9 @@
         public string DefaultEnvelopeStatusUpdateCallbackUrl { get; set; }
 
         /// <summary>
-        ///     Gets or Sets LatitudeConnectUrl
+        ///     Gets or Sets ClientConnectUrl
         /// </summary>
-        public string LatitudeConnectUrl { get; set; }
+        public string ClientConnectUrl { get; set; }
 
         #endregion
     }

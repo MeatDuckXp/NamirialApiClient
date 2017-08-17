@@ -514,7 +514,7 @@ namespace NamirialApiClient
                 AfterSendRedirectUrl = _signingServiceConfiguration.DefaultDraftOptionAfterSendRedirectUrl,
                 RedirectPolicy = RedirectPolicy.ToDesigner,
                 //to enable embedding of the IFrame showing the designer screen, this has to be set as is 
-                IFrameWhiteList = _signingServiceConfiguration.LatitudeConnectUrl,
+                IFrameWhiteList = _signingServiceConfiguration.ClientConnectUrl,
                 AllowAgentRedirect = true
             };
 
