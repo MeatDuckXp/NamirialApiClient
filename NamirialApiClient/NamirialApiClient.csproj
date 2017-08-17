@@ -1,0 +1,160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{32D668D6-21AA-4A79-93A3-23ABEA6B3E2A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>NamirialApiClient</RootNamespace>
+    <AssemblyName>NamirialApiClient</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ApiCallResult.cs" />
+    <Compile Include="Builders\EnvelopeBuilder.cs" />
+    <Compile Include="Configuration\NamirialApiConfiguration.cs" />
+    <Compile Include="Contracts\Actions\ClientAction.cs" />
+    <Compile Include="Contracts\Actions\FinishAction.cs" />
+    <Compile Include="Contracts\Actions\ServerAction.cs" />
+    <Compile Include="Contracts\Base\ServiceMessageBase.cs" />
+    <Compile Include="Contracts\Common\DraftOptions.cs" />
+    <Compile Include="Contracts\Common\RedirectPolicy.cs" />
+    <Compile Include="Contracts\Configuration\AdhocWorkstepConfiguration.cs" />
+    <Compile Include="Contracts\Configuration\SignaturePluginConfiguration.cs" />
+    <Compile Include="Contracts\Configuration\TransactionCodeConfiguration.cs" />
+    <Compile Include="Contracts\Configuration\ViewerPreferences.cs" />
+    <Compile Include="Contracts\Configuration\WorkstepConfiguration.cs" />
+    <Compile Include="Contracts\Documents\CompletedDocument.cs" />
+    <Compile Include="Contracts\Documents\CompletedDocuments.cs" />
+    <Compile Include="Contracts\Documents\File.cs" />
+    <Compile Include="Contracts\Envleopes\Envelope.cs" />
+    <Compile Include="Contracts\Envleopes\EnvelopeStatus.cs" />
+    <Compile Include="Contracts\Envleopes\Status.cs" />
+    <Compile Include="Contracts\Envleopes\Step.cs" />
+    <Compile Include="Contracts\Error\ErrorInfo.cs" />
+    <Compile Include="Contracts\Forms\CheckBox.cs" />
+    <Compile Include="Contracts\Forms\ComboBox.cs" />
+    <Compile Include="Contracts\Forms\ComboBoxItem.cs" />
+    <Compile Include="Contracts\Forms\FontSettings.cs" />
+    <Compile Include="Contracts\Forms\FormField.cs" />
+    <Compile Include="Contracts\Forms\FormsGrouping.cs" />
+    <Compile Include="Contracts\Forms\ParseFormFields.cs" />
+    <Compile Include="Contracts\Forms\PdfForms.cs" />
+    <Compile Include="Contracts\Forms\PdfFormsGroup.cs" />
+    <Compile Include="Contracts\Forms\RadioButton.cs" />
+    <Compile Include="Contracts\Forms\TextBox.cs" />
+    <Compile Include="Contracts\Forms\TextColor.cs" />
+    <Compile Include="Contracts\Policies\AdhocPolicies.cs" />
+    <Compile Include="Contracts\Policies\GeneralPolicies.cs" />
+    <Compile Include="Contracts\Policies\Policy.cs" />
+    <Compile Include="Contracts\Reciepients\BulkRecipient.cs" />
+    <Compile Include="Contracts\Reciepients\Recipient.cs" />
+    <Compile Include="Contracts\Reciepients\RecipientStatus.cs" />
+    <Compile Include="Contracts\Reciepients\RecipientType.cs" />
+    <Compile Include="Contracts\Security\AlgorithmSsignature.cs" />
+    <Compile Include="Contracts\Security\AuthentificationMethod.cs" />
+    <Compile Include="Contracts\Security\AuthorizationStructure.cs" />
+    <Compile Include="Contracts\Security\CertificateIdentifierType.cs" />
+    <Compile Include="Contracts\Security\CertificateStore.cs" />
+    <Compile Include="Contracts\Security\EnvelopeAuthentication.cs" />
+    <Compile Include="Contracts\Security\PdfSignatureCryptographicDataV1.cs" />
+    <Compile Include="Contracts\Security\PdfSignaturePropertiesV1.cs" />
+    <Compile Include="Contracts\Security\SignatureRevocationMode.cs" />
+    <Compile Include="Contracts\Security\SigningCertificateDescriptor.cs" />
+    <Compile Include="Contracts\Task\Task.cs" />
+    <Compile Include="Contracts\Task\WorkstepTasks.cs" />
+    <Compile Include="Contracts\Templates\Sig.cs" />
+    <Compile Include="Contracts\Templates\SignatureTemplate.cs" />
+    <Compile Include="Contracts\Templates\SigStringParsingConfiguration.cs" />
+    <Compile Include="Contracts\Templates\SigStringsForParsing.cs" />
+    <Compile Include="Contracts\Templates\SigTemplate.cs" />
+    <Compile Include="Contracts\Templates\SigTemplateParam.cs" />
+    <Compile Include="Contracts\Templates\TemplateSigParam.cs" />
+    <Compile Include="Definitions\ErrorMessageDefiniton.cs" />
+    <Compile Include="NamirialService.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="ResultStatus.cs" />
+    <Compile Include="ServiceResponse.cs" />
+    <Compile Include="Web References\com.significant.www\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.map</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferenceUrl Include="https://www.significant.com/api.asmx">
+      <UrlBehavior>Dynamic</UrlBehavior>
+      <RelPath>Web References\com.significant.www\</RelPath>
+      <UpdateFromURL>https://www.significant.com/api.asmx</UpdateFromURL>
+      <ServiceLocationURL>
+      </ServiceLocationURL>
+      <CachedDynamicPropName>
+      </CachedDynamicPropName>
+      <CachedAppSettingsObjectName>Settings</CachedAppSettingsObjectName>
+      <CachedSettingsPropName>NamirialApiClient_com_significant_www_Api</CachedSettingsPropName>
+    </WebReferenceUrl>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Web References\com.significant.www\api.disco" />
+    <None Include="Web References\com.significant.www\api.wsdl" />
+    <None Include="Web References\com.significant.www\Reference.map">
+      <Generator>MSDiscoCodeGenerator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

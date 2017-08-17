@@ -1,0 +1,947 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/"
+                  xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/"
+                  xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://www.eSignAnyWhere.com/"
+                  xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema"
+                  xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/"
+                  targetNamespace="http://www.eSignAnyWhere.com/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://www.eSignAnyWhere.com/">
+      <s:element name="UploadTemporarySspFile_v1">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="authorizationXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="fileXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadTemporarySspFile_v1Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadTemporarySspFile_v1Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DisposeSspFile_v1">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="authorizationXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sspFileId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DisposeSspFile_v1Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DisposeSspFile_v1Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAdHocWorkstepConfiguration_v1">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="authorizationXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sspFileIds" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="adHocWorkstepConfiguration" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAdHocWorkstepConfiguration_v1Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAdHocWorkstepConfiguration_v1Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PrepareSendEnvelopeSteps_v1">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="authorizationXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sspFileIds" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="adHocWorkstepConfiguration" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="prepareSendEnvelopeStepsDescriptor" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PrepareSendEnvelopeSteps_v1Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PrepareSendEnvelopeSteps_v1Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadCompletedDocument_v1">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="authorizationXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="envelopeId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="documentId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DownloadCompletedDocument_v1Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DownloadCompletedDocument_v1Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEnvelopeById_v1">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="authorizationXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="envelopeId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEnvelopeById_v1Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEnvelopeById_v1Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindEnvelopes_v1">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="authorizationXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="findEnvelopesDescriptorXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindEnvelopes_v1Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FindEnvelopes_v1Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindEnvelopes_v2">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="authorizationXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="findEnvelopesDescriptorXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="resultFormat" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="FindEnvelopes_v2Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="FindEnvelopes_v2Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendEnvelope_v1">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="authorizationXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sspFileIds" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="envelopeDescriptionXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendEnvelope_v1Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendEnvelope_v1Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendEnvelopeFromTemplate_v1">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="authorizationXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="templateId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="overrideOptionsXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendEnvelopeFromTemplate_v1Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendEnvelopeFromTemplate_v1Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendReminders_v1">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="authorizationXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="envelopeId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SendReminders_v1Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SendReminders_v1Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteEnvelope_v1">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="authorizationXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="envelopeId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteEnvelope_v1Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="DeleteEnvelope_v1Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelEnvelope_v1">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="authorizationXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="envelopeId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CancelEnvelope_v1Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CancelEnvelope_v1Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NotifyEnvelopeWorkstepIsCompleted_v1">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="authorizationXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="envelopeId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="workstepId" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="NotifyEnvelopeWorkstepIsCompleted_v1Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="NotifyEnvelopeWorkstepIsCompleted_v1Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RestartEnvelope_v1">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="authorizationXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="envelopeId" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="expirationInDays" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="RestartEnvelope_v1Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="RestartEnvelope_v1Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReplaceRecipient_v1">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="authorizationXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="envelopeId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="recipientOverrideXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ReplaceRecipient_v1Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ReplaceRecipient_v1Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateDraft_v1">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="authorizationXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="sspFileIds" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="envelopeDescriptionXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="draftOptionsXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateDraft_v1Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateDraft_v1Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateDraftFromTemplate_v1">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="authorizationXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="templateId" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="overrideOptionsXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="draftOptionsXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateDraftFromTemplate_v1Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateDraftFromTemplate_v1Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadUserFile_v1">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="userToken" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="flowFileXml" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="senderApplication" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UploadUserFile_v1Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UploadUserFile_v1Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetVersion_v1">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetVersion_v1Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetVersion_v1Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidateAuthorization_v1">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="authorizationXml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="ValidateAuthorization_v1Response">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ValidateAuthorization_v1Result" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="UploadTemporarySspFile_v1SoapIn">
+    <wsdl:part name="parameters" element="tns:UploadTemporarySspFile_v1" />
+  </wsdl:message>
+  <wsdl:message name="UploadTemporarySspFile_v1SoapOut">
+    <wsdl:part name="parameters" element="tns:UploadTemporarySspFile_v1Response" />
+  </wsdl:message>
+  <wsdl:message name="DisposeSspFile_v1SoapIn">
+    <wsdl:part name="parameters" element="tns:DisposeSspFile_v1" />
+  </wsdl:message>
+  <wsdl:message name="DisposeSspFile_v1SoapOut">
+    <wsdl:part name="parameters" element="tns:DisposeSspFile_v1Response" />
+  </wsdl:message>
+  <wsdl:message name="GetAdHocWorkstepConfiguration_v1SoapIn">
+    <wsdl:part name="parameters" element="tns:GetAdHocWorkstepConfiguration_v1" />
+  </wsdl:message>
+  <wsdl:message name="GetAdHocWorkstepConfiguration_v1SoapOut">
+    <wsdl:part name="parameters" element="tns:GetAdHocWorkstepConfiguration_v1Response" />
+  </wsdl:message>
+  <wsdl:message name="PrepareSendEnvelopeSteps_v1SoapIn">
+    <wsdl:part name="parameters" element="tns:PrepareSendEnvelopeSteps_v1" />
+  </wsdl:message>
+  <wsdl:message name="PrepareSendEnvelopeSteps_v1SoapOut">
+    <wsdl:part name="parameters" element="tns:PrepareSendEnvelopeSteps_v1Response" />
+  </wsdl:message>
+  <wsdl:message name="DownloadCompletedDocument_v1SoapIn">
+    <wsdl:part name="parameters" element="tns:DownloadCompletedDocument_v1" />
+  </wsdl:message>
+  <wsdl:message name="DownloadCompletedDocument_v1SoapOut">
+    <wsdl:part name="parameters" element="tns:DownloadCompletedDocument_v1Response" />
+  </wsdl:message>
+  <wsdl:message name="GetEnvelopeById_v1SoapIn">
+    <wsdl:part name="parameters" element="tns:GetEnvelopeById_v1" />
+  </wsdl:message>
+  <wsdl:message name="GetEnvelopeById_v1SoapOut">
+    <wsdl:part name="parameters" element="tns:GetEnvelopeById_v1Response" />
+  </wsdl:message>
+  <wsdl:message name="FindEnvelopes_v1SoapIn">
+    <wsdl:part name="parameters" element="tns:FindEnvelopes_v1" />
+  </wsdl:message>
+  <wsdl:message name="FindEnvelopes_v1SoapOut">
+    <wsdl:part name="parameters" element="tns:FindEnvelopes_v1Response" />
+  </wsdl:message>
+  <wsdl:message name="FindEnvelopes_v2SoapIn">
+    <wsdl:part name="parameters" element="tns:FindEnvelopes_v2" />
+  </wsdl:message>
+  <wsdl:message name="FindEnvelopes_v2SoapOut">
+    <wsdl:part name="parameters" element="tns:FindEnvelopes_v2Response" />
+  </wsdl:message>
+  <wsdl:message name="SendEnvelope_v1SoapIn">
+    <wsdl:part name="parameters" element="tns:SendEnvelope_v1" />
+  </wsdl:message>
+  <wsdl:message name="SendEnvelope_v1SoapOut">
+    <wsdl:part name="parameters" element="tns:SendEnvelope_v1Response" />
+  </wsdl:message>
+  <wsdl:message name="SendEnvelopeFromTemplate_v1SoapIn">
+    <wsdl:part name="parameters" element="tns:SendEnvelopeFromTemplate_v1" />
+  </wsdl:message>
+  <wsdl:message name="SendEnvelopeFromTemplate_v1SoapOut">
+    <wsdl:part name="parameters" element="tns:SendEnvelopeFromTemplate_v1Response" />
+  </wsdl:message>
+  <wsdl:message name="SendReminders_v1SoapIn">
+    <wsdl:part name="parameters" element="tns:SendReminders_v1" />
+  </wsdl:message>
+  <wsdl:message name="SendReminders_v1SoapOut">
+    <wsdl:part name="parameters" element="tns:SendReminders_v1Response" />
+  </wsdl:message>
+  <wsdl:message name="DeleteEnvelope_v1SoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteEnvelope_v1" />
+  </wsdl:message>
+  <wsdl:message name="DeleteEnvelope_v1SoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteEnvelope_v1Response" />
+  </wsdl:message>
+  <wsdl:message name="CancelEnvelope_v1SoapIn">
+    <wsdl:part name="parameters" element="tns:CancelEnvelope_v1" />
+  </wsdl:message>
+  <wsdl:message name="CancelEnvelope_v1SoapOut">
+    <wsdl:part name="parameters" element="tns:CancelEnvelope_v1Response" />
+  </wsdl:message>
+  <wsdl:message name="NotifyEnvelopeWorkstepIsCompleted_v1SoapIn">
+    <wsdl:part name="parameters" element="tns:NotifyEnvelopeWorkstepIsCompleted_v1" />
+  </wsdl:message>
+  <wsdl:message name="NotifyEnvelopeWorkstepIsCompleted_v1SoapOut">
+    <wsdl:part name="parameters" element="tns:NotifyEnvelopeWorkstepIsCompleted_v1Response" />
+  </wsdl:message>
+  <wsdl:message name="RestartEnvelope_v1SoapIn">
+    <wsdl:part name="parameters" element="tns:RestartEnvelope_v1" />
+  </wsdl:message>
+  <wsdl:message name="RestartEnvelope_v1SoapOut">
+    <wsdl:part name="parameters" element="tns:RestartEnvelope_v1Response" />
+  </wsdl:message>
+  <wsdl:message name="ReplaceRecipient_v1SoapIn">
+    <wsdl:part name="parameters" element="tns:ReplaceRecipient_v1" />
+  </wsdl:message>
+  <wsdl:message name="ReplaceRecipient_v1SoapOut">
+    <wsdl:part name="parameters" element="tns:ReplaceRecipient_v1Response" />
+  </wsdl:message>
+  <wsdl:message name="CreateDraft_v1SoapIn">
+    <wsdl:part name="parameters" element="tns:CreateDraft_v1" />
+  </wsdl:message>
+  <wsdl:message name="CreateDraft_v1SoapOut">
+    <wsdl:part name="parameters" element="tns:CreateDraft_v1Response" />
+  </wsdl:message>
+  <wsdl:message name="CreateDraftFromTemplate_v1SoapIn">
+    <wsdl:part name="parameters" element="tns:CreateDraftFromTemplate_v1" />
+  </wsdl:message>
+  <wsdl:message name="CreateDraftFromTemplate_v1SoapOut">
+    <wsdl:part name="parameters" element="tns:CreateDraftFromTemplate_v1Response" />
+  </wsdl:message>
+  <wsdl:message name="UploadUserFile_v1SoapIn">
+    <wsdl:part name="parameters" element="tns:UploadUserFile_v1" />
+  </wsdl:message>
+  <wsdl:message name="UploadUserFile_v1SoapOut">
+    <wsdl:part name="parameters" element="tns:UploadUserFile_v1Response" />
+  </wsdl:message>
+  <wsdl:message name="GetVersion_v1SoapIn">
+    <wsdl:part name="parameters" element="tns:GetVersion_v1" />
+  </wsdl:message>
+  <wsdl:message name="GetVersion_v1SoapOut">
+    <wsdl:part name="parameters" element="tns:GetVersion_v1Response" />
+  </wsdl:message>
+  <wsdl:message name="ValidateAuthorization_v1SoapIn">
+    <wsdl:part name="parameters" element="tns:ValidateAuthorization_v1" />
+  </wsdl:message>
+  <wsdl:message name="ValidateAuthorization_v1SoapOut">
+    <wsdl:part name="parameters" element="tns:ValidateAuthorization_v1Response" />
+  </wsdl:message>
+  <wsdl:portType name="ApiSoap">
+    <wsdl:operation name="UploadTemporarySspFile_v1">
+      <wsdl:input message="tns:UploadTemporarySspFile_v1SoapIn" />
+      <wsdl:output message="tns:UploadTemporarySspFile_v1SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DisposeSspFile_v1">
+      <wsdl:input message="tns:DisposeSspFile_v1SoapIn" />
+      <wsdl:output message="tns:DisposeSspFile_v1SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAdHocWorkstepConfiguration_v1">
+      <wsdl:input message="tns:GetAdHocWorkstepConfiguration_v1SoapIn" />
+      <wsdl:output message="tns:GetAdHocWorkstepConfiguration_v1SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PrepareSendEnvelopeSteps_v1">
+      <wsdl:input message="tns:PrepareSendEnvelopeSteps_v1SoapIn" />
+      <wsdl:output message="tns:PrepareSendEnvelopeSteps_v1SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DownloadCompletedDocument_v1">
+      <wsdl:input message="tns:DownloadCompletedDocument_v1SoapIn" />
+      <wsdl:output message="tns:DownloadCompletedDocument_v1SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEnvelopeById_v1">
+      <wsdl:input message="tns:GetEnvelopeById_v1SoapIn" />
+      <wsdl:output message="tns:GetEnvelopeById_v1SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FindEnvelopes_v1">
+      <wsdl:input message="tns:FindEnvelopes_v1SoapIn" />
+      <wsdl:output message="tns:FindEnvelopes_v1SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="FindEnvelopes_v2">
+      <wsdl:input message="tns:FindEnvelopes_v2SoapIn" />
+      <wsdl:output message="tns:FindEnvelopes_v2SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendEnvelope_v1">
+      <wsdl:input message="tns:SendEnvelope_v1SoapIn" />
+      <wsdl:output message="tns:SendEnvelope_v1SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendEnvelopeFromTemplate_v1">
+      <wsdl:input message="tns:SendEnvelopeFromTemplate_v1SoapIn" />
+      <wsdl:output message="tns:SendEnvelopeFromTemplate_v1SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SendReminders_v1">
+      <wsdl:input message="tns:SendReminders_v1SoapIn" />
+      <wsdl:output message="tns:SendReminders_v1SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteEnvelope_v1">
+      <wsdl:input message="tns:DeleteEnvelope_v1SoapIn" />
+      <wsdl:output message="tns:DeleteEnvelope_v1SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CancelEnvelope_v1">
+      <wsdl:input message="tns:CancelEnvelope_v1SoapIn" />
+      <wsdl:output message="tns:CancelEnvelope_v1SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="NotifyEnvelopeWorkstepIsCompleted_v1">
+      <wsdl:input message="tns:NotifyEnvelopeWorkstepIsCompleted_v1SoapIn" />
+      <wsdl:output message="tns:NotifyEnvelopeWorkstepIsCompleted_v1SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="RestartEnvelope_v1">
+      <wsdl:input message="tns:RestartEnvelope_v1SoapIn" />
+      <wsdl:output message="tns:RestartEnvelope_v1SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ReplaceRecipient_v1">
+      <wsdl:input message="tns:ReplaceRecipient_v1SoapIn" />
+      <wsdl:output message="tns:ReplaceRecipient_v1SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateDraft_v1">
+      <wsdl:input message="tns:CreateDraft_v1SoapIn" />
+      <wsdl:output message="tns:CreateDraft_v1SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateDraftFromTemplate_v1">
+      <wsdl:input message="tns:CreateDraftFromTemplate_v1SoapIn" />
+      <wsdl:output message="tns:CreateDraftFromTemplate_v1SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UploadUserFile_v1">
+      <wsdl:input message="tns:UploadUserFile_v1SoapIn" />
+      <wsdl:output message="tns:UploadUserFile_v1SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetVersion_v1">
+      <wsdl:input message="tns:GetVersion_v1SoapIn" />
+      <wsdl:output message="tns:GetVersion_v1SoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateAuthorization_v1">
+      <wsdl:input message="tns:ValidateAuthorization_v1SoapIn" />
+      <wsdl:output message="tns:ValidateAuthorization_v1SoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ApiSoap" type="tns:ApiSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UploadTemporarySspFile_v1">
+      <soap:operation soapAction="http://www.eSignAnyWhere.com/UploadTemporarySspFile_v1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DisposeSspFile_v1">
+      <soap:operation soapAction="http://www.eSignAnyWhere.com/DisposeSspFile_v1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAdHocWorkstepConfiguration_v1">
+      <soap:operation soapAction="http://www.eSignAnyWhere.com/GetAdHocWorkstepConfiguration_v1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrepareSendEnvelopeSteps_v1">
+      <soap:operation soapAction="http://www.eSignAnyWhere.com/PrepareSendEnvelopeSteps_v1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadCompletedDocument_v1">
+      <soap:operation soapAction="http://www.eSignAnyWhere.com/DownloadCompletedDocument_v1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEnvelopeById_v1">
+      <soap:operation soapAction="http://www.eSignAnyWhere.com/GetEnvelopeById_v1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindEnvelopes_v1">
+      <soap:operation soapAction="http://www.eSignAnyWhere.com/FindEnvelopes_v1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindEnvelopes_v2">
+      <soap:operation soapAction="http://www.eSignAnyWhere.com/FindEnvelopes_v2" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendEnvelope_v1">
+      <soap:operation soapAction="http://www.eSignAnyWhere.com/SendEnvelope_v1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendEnvelopeFromTemplate_v1">
+      <soap:operation soapAction="http://www.eSignAnyWhere.com/SendEnvelopeFromTemplate_v1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendReminders_v1">
+      <soap:operation soapAction="http://www.eSignAnyWhere.com/SendReminders_v1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteEnvelope_v1">
+      <soap:operation soapAction="http://www.eSignAnyWhere.com/DeleteEnvelope_v1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelEnvelope_v1">
+      <soap:operation soapAction="http://www.eSignAnyWhere.com/CancelEnvelope_v1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyEnvelopeWorkstepIsCompleted_v1">
+      <soap:operation soapAction="http://www.eSignAnyWhere.com/NotifyEnvelopeWorkstepIsCompleted_v1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RestartEnvelope_v1">
+      <soap:operation soapAction="http://www.eSignAnyWhere.com/RestartEnvelope_v1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReplaceRecipient_v1">
+      <soap:operation soapAction="http://www.eSignAnyWhere.com/ReplaceRecipient_v1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateDraft_v1">
+      <soap:operation soapAction="http://www.eSignAnyWhere.com/CreateDraft_v1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateDraftFromTemplate_v1">
+      <soap:operation soapAction="http://www.eSignAnyWhere.com/CreateDraftFromTemplate_v1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadUserFile_v1">
+      <soap:operation soapAction="http://www.eSignAnyWhere.com/UploadUserFile_v1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVersion_v1">
+      <soap:operation soapAction="http://www.eSignAnyWhere.com/GetVersion_v1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateAuthorization_v1">
+      <soap:operation soapAction="http://www.eSignAnyWhere.com/ValidateAuthorization_v1" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ApiSoap12" type="tns:ApiSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="UploadTemporarySspFile_v1">
+      <soap12:operation soapAction="http://www.eSignAnyWhere.com/UploadTemporarySspFile_v1" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DisposeSspFile_v1">
+      <soap12:operation soapAction="http://www.eSignAnyWhere.com/DisposeSspFile_v1" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAdHocWorkstepConfiguration_v1">
+      <soap12:operation soapAction="http://www.eSignAnyWhere.com/GetAdHocWorkstepConfiguration_v1" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PrepareSendEnvelopeSteps_v1">
+      <soap12:operation soapAction="http://www.eSignAnyWhere.com/PrepareSendEnvelopeSteps_v1" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DownloadCompletedDocument_v1">
+      <soap12:operation soapAction="http://www.eSignAnyWhere.com/DownloadCompletedDocument_v1" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEnvelopeById_v1">
+      <soap12:operation soapAction="http://www.eSignAnyWhere.com/GetEnvelopeById_v1" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindEnvelopes_v1">
+      <soap12:operation soapAction="http://www.eSignAnyWhere.com/FindEnvelopes_v1" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="FindEnvelopes_v2">
+      <soap12:operation soapAction="http://www.eSignAnyWhere.com/FindEnvelopes_v2" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendEnvelope_v1">
+      <soap12:operation soapAction="http://www.eSignAnyWhere.com/SendEnvelope_v1" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendEnvelopeFromTemplate_v1">
+      <soap12:operation soapAction="http://www.eSignAnyWhere.com/SendEnvelopeFromTemplate_v1" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SendReminders_v1">
+      <soap12:operation soapAction="http://www.eSignAnyWhere.com/SendReminders_v1" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteEnvelope_v1">
+      <soap12:operation soapAction="http://www.eSignAnyWhere.com/DeleteEnvelope_v1" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CancelEnvelope_v1">
+      <soap12:operation soapAction="http://www.eSignAnyWhere.com/CancelEnvelope_v1" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="NotifyEnvelopeWorkstepIsCompleted_v1">
+      <soap12:operation soapAction="http://www.eSignAnyWhere.com/NotifyEnvelopeWorkstepIsCompleted_v1" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="RestartEnvelope_v1">
+      <soap12:operation soapAction="http://www.eSignAnyWhere.com/RestartEnvelope_v1" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ReplaceRecipient_v1">
+      <soap12:operation soapAction="http://www.eSignAnyWhere.com/ReplaceRecipient_v1" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateDraft_v1">
+      <soap12:operation soapAction="http://www.eSignAnyWhere.com/CreateDraft_v1" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateDraftFromTemplate_v1">
+      <soap12:operation soapAction="http://www.eSignAnyWhere.com/CreateDraftFromTemplate_v1" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UploadUserFile_v1">
+      <soap12:operation soapAction="http://www.eSignAnyWhere.com/UploadUserFile_v1" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetVersion_v1">
+      <soap12:operation soapAction="http://www.eSignAnyWhere.com/GetVersion_v1" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateAuthorization_v1">
+      <soap12:operation soapAction="http://www.eSignAnyWhere.com/ValidateAuthorization_v1" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Api">
+    <wsdl:port name="ApiSoap" binding="tns:ApiSoap">
+      <soap:address location="https://www.significant.com/api.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ApiSoap12" binding="tns:ApiSoap12">
+      <soap12:address location="https://www.significant.com/api.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

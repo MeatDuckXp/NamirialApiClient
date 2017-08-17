@@ -1,0 +1,11 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)"
+              GeneratedClassNamespace="NamirialApiClient.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="NamirialApiClient_com_significant_www_Api" Type="(Web Service URL)" Scope="Application">
+      <Value Profile="(Default)">https://www.significant.com/api.asmx</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
