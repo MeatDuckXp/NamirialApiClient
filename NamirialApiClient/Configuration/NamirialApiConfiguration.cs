@@ -22,17 +22,7 @@
         ///     Gets or Sets ServiceEndpointUrl
         /// </summary>
         public string UserLoginName { get; set; }
-
-        /// <summary>
-        ///     Gets or Sets ServiceEndpointUrl
-        /// </summary>
-        public string EnvelopeStatusElementPath { get; set; }
-
-        /// <summary>
-        ///     Gets or Sets ServiceEndpointUrl
-        /// </summary>
-        public string FileElementPath { get; set; }
-
+                 
         /// <summary>
         ///     Gets or Sets ServiceEndpointUrl
         /// </summary>

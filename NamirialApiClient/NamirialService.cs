@@ -20,7 +20,7 @@ namespace NamirialApiClient
     /// <summary>
     ///     Represents wrapper around Namirial SOAP API Calls and the required logic close to the API
     /// </summary>
-    public class NamirialService
+    public class NamirialService : INamirialService
     {
         #region Constructor 
 
@@ -31,7 +31,6 @@ namespace NamirialApiClient
         public NamirialService(NamirialAdapterConfiguration configuration)
         {
             _signingServiceConfiguration = configuration;
-
             _credentials = new AuthorizationData {OrganizationKey = _signingServiceConfiguration.OrganizationKey, UserLoginName = _signingServiceConfiguration.UserLoginName}.Serialize();
 
             _signingService = new Api
@@ -43,21 +42,33 @@ namespace NamirialApiClient
 
         #endregion
 
-        #region Methods
+        #region Private Methods
 
         /// <summary>
-        ///     Cancels Singing Request
+        ///     Creates instance of ServiceResponse
         /// </summary>
-        /// <param name="envelopeId">Envelope Id</param>
+        /// <returns></returns>
+        private static ServiceResponse CreateServiceResponse()
+        {
+            var response = new ServiceResponse();
+            return response;
+        }
+
+        #endregion
+
+        #region Envelope Related Actions
+
+        /// <summary>
+        ///     Cancels Envelope
+        /// </summary>
+        /// <param name="id">Envelope Id</param>
         /// <returns>ServiceResponse</returns>
         /// <remarks>
         ///     Signing request can be canceled only in certain states. It is to expect that the envelope cancellation fails.
         /// </remarks>
-        public ServiceResponse CancelSigningRequet(Guid envelopeId)
+        public ServiceResponse CancelEnvelope(Guid id)
         {
-            var response = new ServiceResponse();
-
-            var apiResponseString = _signingService.CancelEnvelope_v1(_credentials, envelopeId.ToString());
+            var apiResponseString = _signingService.CancelEnvelope_v1(_credentials, id.ToString());
             var apiResponseObject = default(ApiCallResult<bool>);
 
             if (!string.IsNullOrWhiteSpace(apiResponseString))
@@ -65,7 +76,254 @@ namespace NamirialApiClient
                 apiResponseObject = ServiceMessageBase.Deserialize<ApiCallResult<bool>>(apiResponseString);
             }
 
-            //assuming we did not receive any response from their soap API
+            var response = CreateServiceResponse();
+            if (apiResponseObject == null)
+            {
+                response.AddErrorMessage(ErrorMessageDefiniton.NoServiceResponse);
+                return response;
+            }
+
+            if (apiResponseObject.BaseResult == ResultStatus.Failed)
+            {
+                if (apiResponseObject.Error != null)
+                {
+                    response.AddErrorMessage(apiResponseObject.Error.Error, apiResponseObject.Error.ErrorMsg);
+                }
+                else
+                {
+                    response.AddErrorMessage(ErrorMessageDefiniton.NoErrorMessageProvided);
+                }
+
+                return response;
+            }
+
+            response.Result = apiResponseObject.OkInfo;
+            return response;
+        }
+
+        /// <summary>
+        ///     Restarts Envelope
+        /// </summary>
+        /// <param name="id">Envelope Id</param>
+        /// <param name="expiriationDaysCount">Envelope Expiration In Days (Count)</param>
+        /// <returns>ServiceResponse</returns>
+        public ServiceResponse RestartEnvelope(Guid id, int expiriationDaysCount)
+        {
+            var apiResponseString = _signingService.RestartEnvelope_v1(_credentials, id.ToString(), expiriationDaysCount);
+            var apiResponseObject = default(ApiCallResult<bool>);
+
+            if (!string.IsNullOrWhiteSpace(apiResponseString))
+            {
+                apiResponseObject = ServiceMessageBase.Deserialize<ApiCallResult<bool>>(apiResponseString);
+            }
+
+            var response = CreateServiceResponse();
+            if (apiResponseObject == null)
+            {
+                response.AddErrorMessage(ErrorMessageDefiniton.NoServiceResponse);
+                return response;
+            }
+
+            if (apiResponseObject.BaseResult == ResultStatus.Failed)
+            {
+                if (apiResponseObject.Error != null)
+                {
+                    response.AddErrorMessage(apiResponseObject.Error.Error, apiResponseObject.Error.ErrorMsg);
+                }
+                else
+                {
+                    response.AddErrorMessage(ErrorMessageDefiniton.NoErrorMessageProvided);
+                }
+
+                return response;
+            }
+
+            response.Result = apiResponseObject.OkInfo;
+            return response;
+        }
+
+        /// <summary>
+        ///     Deletes Envelope
+        /// </summary>
+        /// <param name="id">Envelope Id</param>
+        /// <returns>ServiceResponse</returns>
+        public ServiceResponse DeleteEnvelope(Guid id)
+        {
+            var apiResponseString = _signingService.DeleteEnvelope_v1(_credentials, id.ToString());
+            var apiResponseObject = default(ApiCallResult<bool>);
+
+            if (!string.IsNullOrWhiteSpace(apiResponseString))
+            {
+                apiResponseObject = ServiceMessageBase.Deserialize<ApiCallResult<bool>>(apiResponseString);
+            }
+
+            var response = CreateServiceResponse();
+            if (apiResponseObject == null)
+            {
+                response.AddErrorMessage(ErrorMessageDefiniton.NoServiceResponse);
+                return response;
+            }
+
+            if (apiResponseObject.BaseResult == ResultStatus.Failed)
+            {
+                if (apiResponseObject.Error != null)
+                {
+                    response.AddErrorMessage(apiResponseObject.Error.Error, apiResponseObject.Error.ErrorMsg);
+                }
+                else
+                {
+                    response.AddErrorMessage(ErrorMessageDefiniton.NoErrorMessageProvided);
+                }
+                return response;
+            }
+
+            response.Result = apiResponseObject.OkInfo;
+            return response;
+        }
+
+        /// <summary>
+        ///     Creates Envelope Draft
+        /// </summary>
+        /// <param name="recipients">Collection of Recipients</param>
+        /// <param name="documentIds">Collection of document ids</param>
+        /// <param name="validTo">Valid From</param>
+        /// <param name="envelopeName">Envelope Name</param>
+        /// <param name="emailSubject">Email Subject</param>
+        /// <param name="emailBody">Email Body</param>
+        /// <param name="validFrom">Valid To</param>
+        /// <returns>ServiceResponse</returns>
+        public ServiceResponse CreateEnvelopeDraft(IList<Recipient> recipients, IList<string> documentIds, DateTime validFrom, DateTime validTo, string envelopeName, string emailSubject, string emailBody)
+        {
+            var response = new ServiceResponse();
+
+            if (recipients == null)
+            {
+                response.AddErrorMessage(ErrorMessageDefiniton.RecipientListNotProvided);
+                return response;
+            }
+
+            if (documentIds == null)
+            {
+                response.AddErrorMessage(ErrorMessageDefiniton.DocumentListNotProvided);
+                return response;
+            }
+
+            var envelopeBuilder = new EnvelopeBuilder(_signingServiceConfiguration);
+            var daysUntilExpire = (validTo - validFrom).Days;
+            var envelope = envelopeBuilder.Build(recipients, documentIds, envelopeName, emailSubject, emailBody, daysUntilExpire);
+
+            var redirectionConfig = new DraftOptions
+            {
+                AfterSendCallbackUrl = _signingServiceConfiguration.DefaultDraftOptionAfterSendCallbackUrl,
+                AfterSendRedirectUrl = _signingServiceConfiguration.DefaultDraftOptionAfterSendRedirectUrl,
+                RedirectPolicy = RedirectPolicy.ToDesigner,
+                //to enable embedding of the IFrame showing the designer screen, this has to be set as is 
+                IFrameWhiteList = _signingServiceConfiguration.ClientConnectUrl,
+                AllowAgentRedirect = true
+            };
+
+            var apiResponseString = _signingService.CreateDraft_v1(_credentials, documentIds.ToArray(), envelope.Serialize(), redirectionConfig.Serialize());
+            var apiResponseObject = default(ApiCallResult<string>);
+
+            if (!string.IsNullOrWhiteSpace(apiResponseString))
+            {
+                apiResponseObject = ServiceMessageBase.Deserialize<ApiCallResult<string>>(apiResponseString);
+            }
+
+            if (apiResponseObject == null)
+            {
+                response.AddErrorMessage(ErrorMessageDefiniton.NoServiceResponse);
+                return response;
+            }
+
+            if (apiResponseObject.BaseResult == ResultStatus.Failed)
+            {
+                if (apiResponseObject.Error != null)
+                {
+                    response.AddErrorMessage(apiResponseObject.Error.Error, apiResponseObject.Error.ErrorMsg);
+                }
+                else
+                {
+                    response.AddErrorMessage(ErrorMessageDefiniton.NoErrorMessageProvided);
+                }
+                return response;
+            }
+
+            response.Result = apiResponseObject.OkInfo;
+
+            return response;
+        }
+
+        /// <summary>
+        ///     Returns Envelope status
+        /// </summary>
+        /// <param name="id">Envelope Id</param>
+        /// <returns>ServiceResponse</returns>
+        public ServiceResponse GetEnvelopeStatus(Guid id)
+        {
+            var apiResponseString = _signingService.GetEnvelopeById_v1(_credentials, id.ToString());
+            var apiResponseObject = default(ApiCallResult<EnvelopeStatus>);
+            var envelopeStatusString = default(string);
+
+            if (!string.IsNullOrWhiteSpace(apiResponseString))
+            {
+                apiResponseObject = ServiceMessageBase.Deserialize<ApiCallResult<EnvelopeStatus>>(apiResponseString);
+
+                var envelopeStatusNode = XDocument.Parse(apiResponseString).XPathSelectElement("/apiResult/okInfo/envelopeStatus");
+                if (envelopeStatusNode != null)
+                {
+                    envelopeStatusString = envelopeStatusNode.ToString();
+                    apiResponseObject.OkInfo = ServiceMessageBase.Deserialize<EnvelopeStatus>(envelopeStatusString);
+                }
+            }
+
+            var response = CreateServiceResponse();
+            if (apiResponseObject == null)
+            {
+                response.AddErrorMessage(ErrorMessageDefiniton.NoServiceResponse);
+                return response;
+            }
+
+            if (apiResponseObject.BaseResult == ResultStatus.Failed)
+            {
+                if (apiResponseObject.Error != null)
+                {
+                    response.AddErrorMessage(apiResponseObject.Error.Error, apiResponseObject.Error.ErrorMsg);
+                }
+                else
+                {
+                    response.AddErrorMessage(ErrorMessageDefiniton.NoErrorMessageProvided);
+                }
+                return response;
+            }
+
+            response.Result = apiResponseObject.OkInfo;
+            response.OriginalResult = envelopeStatusString;
+
+            return response;
+        }
+
+        #endregion
+
+        #region Document related Actions
+
+        /// <summary>
+        ///     Disposes Document on server
+        /// </summary>
+        /// <param name="id">Document Id</param>
+        /// <returns>ServiceResponse</returns>
+        public ServiceResponse DisposeDocument(Guid id)
+        {
+            var response = new ServiceResponse();
+
+            var apiResponseString = _signingService.DisposeSspFile_v1(_credentials, id.ToString());
+            var apiResponseObject = default(ApiCallResult<bool>);
+
+            if (!string.IsNullOrWhiteSpace(apiResponseString))
+            {
+                apiResponseObject = ServiceMessageBase.Deserialize<ApiCallResult<bool>>(apiResponseString);
+            }
+
             if (apiResponseObject == null)
             {
                 response.AddErrorMessage(ErrorMessageDefiniton.NoServiceResponse);
@@ -93,161 +351,13 @@ namespace NamirialApiClient
         }
 
         /// <summary>
-        ///     Restart Singing Request
+        ///     Downloads Signed Documents
         /// </summary>
         /// <param name="envelopeId">Envelope Id</param>
-        /// <param name="expiriationDays">Envelope Expiration In Days (Count)</param>
-        /// <returns>ServiceResponse</returns>
-        public ServiceResponse RestartSigningRequet(string envelopeId, int expiriationDays)
+        public ServiceResponse DownloadSignedDocuments(Guid envelopeId)
         {
             var response = new ServiceResponse();
-
-            if (string.IsNullOrWhiteSpace(envelopeId))
-            {
-                response.AddErrorMessage(ErrorMessageDefiniton.EnvelopeIdNotProvided);
-                return response;
-            }
-
-            if (expiriationDays <= default(int))
-            {
-                response.AddErrorMessage(ErrorMessageDefiniton.ExpirationDaysValueTooSmall);
-                return response;
-            }
-
-            var apiResponseString = _signingService.RestartEnvelope_v1(_credentials, envelopeId, expiriationDays);
-            var apiResponseObject = default(ApiCallResult<bool>);
-
-            if (!string.IsNullOrWhiteSpace(apiResponseString))
-            {
-                apiResponseObject = ServiceMessageBase.Deserialize<ApiCallResult<bool>>(apiResponseString);
-            }
-
-            if (apiResponseObject == null)
-            {
-                response.AddErrorMessage(ErrorMessageDefiniton.NoServiceResponse);
-                return response;
-            }
-
-            if (apiResponseObject.BaseResult == ResultStatus.Failed)
-            {
-                //check this just in case
-                if (apiResponseObject.Error != null)
-                {
-                    response.AddErrorMessage(apiResponseObject.Error.Error, apiResponseObject.Error.ErrorMsg);
-                }
-                else
-                {
-                    response.AddErrorMessage(ErrorMessageDefiniton.NoErrorMessageProvided);
-                }
-
-                return response;
-            }
-
-            response.Result = apiResponseObject.OkInfo;
-
-            return response;
-        }
-
-        /// <summary>
-        ///     Deletes Singing Request
-        /// </summary>
-        /// <param name="envelopeId">Envelope Id</param>
-        /// <returns>ServiceResponse</returns>
-        public ServiceResponse DeleteSigningRequet(Guid envelopeId)
-        {
-            var response = new ServiceResponse();
-
-            var apiResponseString = _signingService.DeleteEnvelope_v1(_credentials, envelopeId.ToString());
-            var apiResponseObject = default(ApiCallResult<bool>);
-
-            if (!string.IsNullOrWhiteSpace(apiResponseString))
-            {
-                apiResponseObject = ServiceMessageBase.Deserialize<ApiCallResult<bool>>(apiResponseString);
-            }
-
-            if (apiResponseObject == null)
-            {
-                response.AddErrorMessage(ErrorMessageDefiniton.NoServiceResponse);
-                return response;
-            }
-
-            if (apiResponseObject.BaseResult == ResultStatus.Failed)
-            {
-                //check this just in case
-                if (apiResponseObject.Error != null)
-                {
-                    response.AddErrorMessage(apiResponseObject.Error.Error, apiResponseObject.Error.ErrorMsg);
-                }
-                else
-                {
-                    response.AddErrorMessage(ErrorMessageDefiniton.NoErrorMessageProvided);
-                }
-                return response;
-            }
-
-            response.Result = apiResponseObject.OkInfo;
-
-            return response;
-        }
-
-        /// <summary>
-        ///     Disposes Signing Document on server
-        /// </summary>
-        /// <param name="documentId">Document Id</param>
-        /// <returns>ServiceResponse</returns>
-        public ServiceResponse DisposeSigningDocument(string documentId)
-        {
-            var response = new ServiceResponse();
-
-            if (string.IsNullOrWhiteSpace(documentId))
-            {
-                response.AddErrorMessage(ErrorMessageDefiniton.EnvelopeIdNotProvided);
-                return response;
-            }
-
-            var apiResponseString = _signingService.DisposeSspFile_v1(_credentials, documentId);
-            var apiResponseObject = default(ApiCallResult<bool>);
-
-            if (!string.IsNullOrWhiteSpace(apiResponseString))
-            {
-                apiResponseObject = ServiceMessageBase.Deserialize<ApiCallResult<bool>>(apiResponseString);
-            }
-
-            if (apiResponseObject == null)
-            {
-                response.AddErrorMessage(ErrorMessageDefiniton.NoServiceResponse);
-                return response;
-            }
-
-            if (apiResponseObject.BaseResult == ResultStatus.Failed)
-            {
-                //check this just in case
-                if (apiResponseObject.Error != null)
-                {
-                    response.AddErrorMessage(apiResponseObject.Error.Error, apiResponseObject.Error.ErrorMsg);
-                }
-                else
-                {
-                    response.AddErrorMessage(ErrorMessageDefiniton.NoErrorMessageProvided);
-                }
-
-                return response;
-            }
-
-            response.Result = apiResponseObject.OkInfo;
-
-            return response;
-        }
-
-        /// <summary>
-        ///     Downloads Completed Documents for a given Envelope
-        /// </summary>
-        /// <param name="envelopeId">Envelope Id</param>
-        public ServiceResponse DownloadCompletedDocuments(Guid envelopeId)
-        {
-            var response = new ServiceResponse();
-
-            var result = GetEnvelope(envelopeId);
+            var result = GetEnvelopeStatus(envelopeId);
 
             if (!result.Success)
             {
@@ -283,7 +393,7 @@ namespace NamirialApiClient
 
                     var downloadDocumentResult = ServiceMessageBase.Deserialize<ApiCallResult<File>>(fileDownLoadResponseXml);
 
-                    var documentFileContentNode = XDocument.Parse(fileDownLoadResponseXml).XPathSelectElement(_signingServiceConfiguration.FileElementPath);
+                    var documentFileContentNode = XDocument.Parse(fileDownLoadResponseXml).XPathSelectElement("/apiResult/okInfo/file");
                     if (documentFileContentNode != null)
                     {
                         downloadDocumentResult.OkInfo = ServiceMessageBase.Deserialize<File>(documentFileContentNode.ToString());
@@ -356,10 +466,10 @@ namespace NamirialApiClient
         /// </summary>
         /// <param name="envelopeId">Envelope Id</param>
         /// <returns>ServiceResponse</returns>
-        public ServiceResponse DeleteEnvelopeDocuments(Guid envelopeId)
+        public ServiceResponse DeleteDocuments(Guid envelopeId)
         {
             var response = new ServiceResponse();
-            var envelopeStatusResult = GetEnvelope(envelopeId);
+            var envelopeStatusResult = GetEnvelopeStatus(envelopeId);
 
             if (!envelopeStatusResult.Success)
             {
@@ -387,7 +497,7 @@ namespace NamirialApiClient
 
                     var downloadDocumentResult = ServiceMessageBase.Deserialize<ApiCallResult<File>>(fileDownLoadResponseXml);
 
-                    var documentFileContentNode = XDocument.Parse(fileDownLoadResponseXml).XPathSelectElement(_signingServiceConfiguration.FileElementPath);
+                    var documentFileContentNode = XDocument.Parse(fileDownLoadResponseXml).XPathSelectElement("/apiResult/okInfo/file");
                     if (documentFileContentNode != null)
                     {
                         downloadDocumentResult.OkInfo = ServiceMessageBase.Deserialize<File>(documentFileContentNode.ToString());
@@ -412,11 +522,11 @@ namespace NamirialApiClient
         }
 
         /// <summary>
-        ///     Uploads Temporal Documents for signing
+        ///     Uploads Documents for signing
         /// </summary>
         /// <param name="file">Document Content</param>
         /// <returns>ServiceResponse</returns>
-        public ServiceResponse UploadTemporaryDocument(File file)
+        public ServiceResponse SendDocument(File file)
         {
             var response = new ServiceResponse();
 
@@ -460,192 +570,19 @@ namespace NamirialApiClient
         }
 
         /// <summary>
-        ///     Uploads Temporal Documents for signing
+        ///     Uploads Documents for signing
         /// </summary>
         /// <param name="files">Collection of document contents</param>
         /// <returns>ServiceResponse</returns>
-        public ServiceResponse UploadTemporaryDocument(IList<File> files)
+        public ServiceResponse SendDocument(IList<File> files)
         {
             var response = new ServiceResponse();
 
-            var serviceResponses = files?.Select(UploadTemporaryDocument).ToList();
-
+            var serviceResponses = files?.Select(SendDocument).ToList();
             if (serviceResponses != null)
             {
                 response.Result = serviceResponses.Select(serviceResponse => serviceResponse.Result as string).ToList();
             }
-            return response;
-        }
-
-        /// <summary>
-        ///     Drafts Envelope
-        /// </summary>
-        /// <param name="recipients">Collection of Recipients</param>
-        /// <param name="documentIds">Collection of document ids</param>
-        /// <param name="validTo">Valid From</param>
-        /// <param name="envelopeName">Envelope Name</param>
-        /// <param name="emailSubject">Email Subject</param>
-        /// <param name="emailBody">Email Body</param>
-        /// <param name="validFrom">Valid To</param>
-        /// <returns>ServiceResponse</returns>
-        public ServiceResponse SendDraftEnvelope(IList<Recipient> recipients, IList<string> documentIds, DateTime validFrom, DateTime validTo, string envelopeName, string emailSubject, string emailBody)
-        {
-            var response = new ServiceResponse();
-
-            if (recipients == null)
-            {
-                response.AddErrorMessage(ErrorMessageDefiniton.RecipientListNotProvided);
-                return response;
-            }
-
-            if (documentIds == null)
-            {
-                response.AddErrorMessage(ErrorMessageDefiniton.DocumentListNotProvided);
-                return response;
-            }
-
-            var envelopeBuilder = new EnvelopeBuilder(_signingServiceConfiguration);
-            var daysUntilExpire = (validTo - validFrom).Days;
-            var envelope = envelopeBuilder.Build(recipients, documentIds, envelopeName, emailSubject, emailBody, daysUntilExpire);
-
-            var redirectionConfig = new DraftOptions
-            {
-                AfterSendCallbackUrl = _signingServiceConfiguration.DefaultDraftOptionAfterSendCallbackUrl,
-                AfterSendRedirectUrl = _signingServiceConfiguration.DefaultDraftOptionAfterSendRedirectUrl,
-                RedirectPolicy = RedirectPolicy.ToDesigner,
-                //to enable embedding of the IFrame showing the designer screen, this has to be set as is 
-                IFrameWhiteList = _signingServiceConfiguration.ClientConnectUrl,
-                AllowAgentRedirect = true
-            };
-
-            var apiResponseString = _signingService.CreateDraft_v1(_credentials, documentIds.ToArray(), envelope.Serialize(), redirectionConfig.Serialize());
-            var apiResponseObject = default(ApiCallResult<string>);
-
-            if (!string.IsNullOrWhiteSpace(apiResponseString))
-            {
-                apiResponseObject = ServiceMessageBase.Deserialize<ApiCallResult<string>>(apiResponseString);
-            }
-
-            if (apiResponseObject == null)
-            {
-                response.AddErrorMessage(ErrorMessageDefiniton.NoServiceResponse);
-                return response;
-            }
-
-            if (apiResponseObject.BaseResult == ResultStatus.Failed)
-            {
-                if (apiResponseObject.Error != null)
-                {
-                    response.AddErrorMessage(apiResponseObject.Error.Error, apiResponseObject.Error.ErrorMsg);
-                }
-                else
-                {
-                    response.AddErrorMessage(ErrorMessageDefiniton.NoErrorMessageProvided);
-                }
-                return response;
-            }
-
-            response.Result = apiResponseObject.OkInfo;
-
-            return response;
-        }
-
-        /// <summary>
-        ///     Returns envelope status
-        /// </summary>
-        /// <param name="envelopeId">Envelope Id</param>
-        /// <returns>ServiceResponse</returns>
-        public ServiceResponse GetEnvelope(Guid envelopeId)
-        {
-            var response = new ServiceResponse();
-
-            var apiResponseString = _signingService.GetEnvelopeById_v1(_credentials, envelopeId.ToString());
-            var apiResponseObject = default(ApiCallResult<EnvelopeStatus>);
-            var envelopeStatusString = default(string);
-
-            if (!string.IsNullOrWhiteSpace(apiResponseString))
-            {
-                apiResponseObject = ServiceMessageBase.Deserialize<ApiCallResult<EnvelopeStatus>>(apiResponseString);
-
-                var envelopeStatusNode = XDocument.Parse(apiResponseString).XPathSelectElement("/apiResult/okInfo/envelopeStatus");
-                if (envelopeStatusNode != null)
-                {
-                    envelopeStatusString = envelopeStatusNode.ToString();
-                    apiResponseObject.OkInfo = ServiceMessageBase.Deserialize<EnvelopeStatus>(envelopeStatusString);
-                }
-            }
-
-            if (apiResponseObject == null)
-            {
-                response.AddErrorMessage(ErrorMessageDefiniton.NoServiceResponse);
-                return response;
-            }
-
-            if (apiResponseObject.BaseResult == ResultStatus.Failed)
-            {
-                if (apiResponseObject.Error != null)
-                {
-                    response.AddErrorMessage(apiResponseObject.Error.Error, apiResponseObject.Error.ErrorMsg);
-                }
-                else
-                {
-                    response.AddErrorMessage(ErrorMessageDefiniton.NoErrorMessageProvided);
-                }
-                return response;
-            }
-
-            response.Result = apiResponseObject.OkInfo;
-            response.OriginalResult = envelopeStatusString;
-
-            return response;
-        }
-
-        /// <summary>
-        ///     Restart Signing Request on server in order to initiate the process from beginning
-        /// </summary>
-        /// <param name="envelopeId">Envelope Id</param>
-        /// <param name="expirationInDays">Envelope Expiration In Days (Count)</param>
-        /// <returns>ServiceResponse</returns>
-        public ServiceResponse RestartSigningRequest(string envelopeId, int expirationInDays)
-        {
-            var response = new ServiceResponse();
-
-            if (string.IsNullOrWhiteSpace(envelopeId))
-            {
-                response.AddErrorMessage(ErrorMessageDefiniton.EnvelopeIdNotProvided);
-                return response;
-            }
-
-            var apiResponseString = _signingService.RestartEnvelope_v1(_credentials, envelopeId, expirationInDays);
-            var apiResponseObject = default(ApiCallResult<bool>);
-
-            if (!string.IsNullOrWhiteSpace(apiResponseString))
-            {
-                apiResponseObject = ServiceMessageBase.Deserialize<ApiCallResult<bool>>(apiResponseString);
-            }
-
-            if (apiResponseObject == null)
-            {
-                response.AddErrorMessage(ErrorMessageDefiniton.NoServiceResponse);
-                return response;
-            }
-
-            if (apiResponseObject.BaseResult == ResultStatus.Failed)
-            {
-                if (apiResponseObject.Error != null)
-                {
-                    response.AddErrorMessage(apiResponseObject.Error.Error, apiResponseObject.Error.ErrorMsg);
-                }
-                else
-                {
-                    response.AddErrorMessage(ErrorMessageDefiniton.NoErrorMessageProvided);
-                }
-
-                return response;
-            }
-
-            response.Result = apiResponseObject.OkInfo;
-
             return response;
         }
 
