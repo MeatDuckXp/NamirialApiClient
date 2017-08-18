@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NamirialApiClient", "Namiri
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NamirialApiClient.Tests", "NamirialApiClient.Tests\NamirialApiClient.Tests.csproj", "{341A875C-FD78-4051-8B5D-6FD05DB2840E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ExampleProject", "ExampleProject", "{79DA6DFD-57B5-4B9A-A822-8F3986C21909}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NamirialApiClientTestProject", "NamirialApiClientTestProject\NamirialApiClientTestProject.csproj", "{2F7AD964-48D0-48DD-9323-B680DFEA36ED}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,8 +25,15 @@ Global
 		{341A875C-FD78-4051-8B5D-6FD05DB2840E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{341A875C-FD78-4051-8B5D-6FD05DB2840E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{341A875C-FD78-4051-8B5D-6FD05DB2840E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F7AD964-48D0-48DD-9323-B680DFEA36ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F7AD964-48D0-48DD-9323-B680DFEA36ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F7AD964-48D0-48DD-9323-B680DFEA36ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F7AD964-48D0-48DD-9323-B680DFEA36ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2F7AD964-48D0-48DD-9323-B680DFEA36ED} = {79DA6DFD-57B5-4B9A-A822-8F3986C21909}
 	EndGlobalSection
 EndGlobal
