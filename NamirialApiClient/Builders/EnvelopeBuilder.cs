@@ -11,7 +11,7 @@ namespace NamirialApiClient.Builders
     /// </summary>
     public class EnvelopeBuilder
     {
-        private readonly NamirialAdapterConfiguration _signingServiceConfiguration;
+        private readonly NamirialApiConfiguration _signingServiceConfiguration;
 
         #region Constructor
 
@@ -19,7 +19,7 @@ namespace NamirialApiClient.Builders
         ///     Constructor
         /// </summary>
         /// <param name="config">Adapter Configuration</param>
-        public EnvelopeBuilder(NamirialAdapterConfiguration config)
+        public EnvelopeBuilder(NamirialApiConfiguration config)
         {
             _signingServiceConfiguration = config;
         }

@@ -3,7 +3,7 @@
     /// <summary>
     ///     Configuration Holder for Namirial API operations
     /// </summary>
-    public class NamirialAdapterConfiguration
+    public class NamirialApiConfiguration
     {
         /// <summary>
         ///     Gets or Sets ServiceEndpointUrl

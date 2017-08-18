@@ -28,7 +28,7 @@ namespace NamirialApiClient
         ///     Constructor Namirial Adapter Configuration
         /// </summary>
         /// <param name="configuration"></param>
-        public NamirialService(NamirialAdapterConfiguration configuration)
+        public NamirialService(NamirialApiConfiguration configuration)
         {
             _signingServiceConfiguration = configuration;
             _credentials = new AuthorizationData {OrganizationKey = _signingServiceConfiguration.OrganizationKey, UserLoginName = _signingServiceConfiguration.UserLoginName}.Serialize();
@@ -646,7 +646,7 @@ namespace NamirialApiClient
 
         private readonly string _credentials;
         private readonly Api _signingService;
-        private readonly NamirialAdapterConfiguration _signingServiceConfiguration;
+        private readonly NamirialApiConfiguration _signingServiceConfiguration;
 
         #endregion
     }
