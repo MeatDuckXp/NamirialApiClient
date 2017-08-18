@@ -268,12 +268,11 @@ namespace NamirialApiClient
 
             var redirectionConfig = new DraftOptions
             {
+                AllowAgentRedirect = true,
+                RedirectPolicy = RedirectPolicy.ToDesigner,
                 AfterSendCallbackUrl = _signingServiceConfiguration.DefaultDraftOptionAfterSendCallbackUrl,
                 AfterSendRedirectUrl = _signingServiceConfiguration.DefaultDraftOptionAfterSendRedirectUrl,
-                RedirectPolicy = RedirectPolicy.ToDesigner,
-                //to enable embedding of the IFrame showing the designer screen, this has to be set as is 
-                IFrameWhiteList = _signingServiceConfiguration.ClientConnectUrl,
-                AllowAgentRedirect = true
+                IFrameWhiteList = _signingServiceConfiguration.ClientUrl,
             };
 
             var apiResponseString = _signingService.CreateDraft_v1(_credentials, documentIds.ToArray(), envelope.Serialize(), redirectionConfig.Serialize());

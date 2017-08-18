@@ -1,4 +1,6 @@
-﻿namespace NamirialApiClient.Configuration
+﻿using NamirialApiClient.Contracts.Reciepients;
+
+namespace NamirialApiClient.Configuration
 {
     /// <summary>
     ///     Configuration Holder for Namirial API operations
@@ -8,9 +10,6 @@
         /// <summary>
         ///     Gets or Sets ServiceEndpointUrl
         /// </summary>
-        /// <remarks>
-        ///     Default value is https://www.significant.com/api.asmx
-        /// </remarks>
         public string ServiceEndpointUrl { get; set; }
 
         /// <summary>
@@ -37,16 +36,11 @@
         ///     Gets or Sets ServiceEndpointUrl
         /// </summary>
         public string DefaultRedirectPolicy { get; set; }
-
+ 
         /// <summary>
-        ///     Gets or Sets ServiceEndpointUrl
+        ///     Gets or Sets DefaultRecipientType
         /// </summary>
-        public string DefaultEnvelopeName { get; set; }
-
-        /// <summary>
-        ///     Gets or Sets ServiceEndpointUrl
-        /// </summary>
-        public string DefaultRecipientType { get; set; }
+        public RecipientType DefaultRecipientType { get; set; }
 
         #region Envelope Level Call Back URLS
 
@@ -85,9 +79,9 @@
         public string DefaultEnvelopeStatusUpdateCallbackUrl { get; set; }
 
         /// <summary>
-        ///     Gets or Sets ClientConnectUrl
+        ///     Gets or Sets ClientUrl
         /// </summary>
-        public string ClientConnectUrl { get; set; }
+        public string ClientUrl { get; set; }
 
         #endregion
     }

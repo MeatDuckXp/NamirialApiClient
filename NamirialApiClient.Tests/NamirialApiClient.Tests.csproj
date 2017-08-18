@@ -60,12 +60,14 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="ConfigurationTests\ConfigurationTest.cs" />
     <Compile Include="EnvelopeBuilderTests\EnvelopeBuilderTest.cs" />
     <Compile Include="NamirialServiceTests\NamirialServiceTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestBase\NamirialClientTestBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
@@ -73,6 +75,9 @@
       <Project>{32d668d6-21aa-4a79-93a3-23abea6b3e2a}</Project>
       <Name>NamirialApiClient</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

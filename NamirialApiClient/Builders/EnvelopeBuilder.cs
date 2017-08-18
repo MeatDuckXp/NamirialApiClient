@@ -42,7 +42,7 @@ namespace NamirialApiClient.Builders
         {
             var envelope = new Envelope
             {
-                Name = envelopeName ?? _signingServiceConfiguration.DefaultEnvelopeName,
+                Name = envelopeName,
                 EmailSubject = emailSubject,
                 EmailBody = emailBody,
                 DaysUntilExpire = daysUntilExpire,
@@ -54,22 +54,13 @@ namespace NamirialApiClient.Builders
                 StatusUpdateCallbackUrl = _signingServiceConfiguration.DefaultEnvelopeStatusUpdateCallbackUrl
             };
 
-
-            var recipientType = RecipientType.Signer;
-            RecipientType tempRecipientType;
-
-            if (Enum.TryParse(_signingServiceConfiguration.DefaultRecipientType, out tempRecipientType))
-            {
-                recipientType = tempRecipientType;
-            }
-
             foreach (var recipient in recipients)
             {
                 var requestStep = new Step
                 {
                     OrderIndex = recipient.OrderIndex ?? 1,
                     EmailBodyExtra = string.Empty,
-                    RecipientType = recipientType,
+                    RecipientType = _signingServiceConfiguration.DefaultRecipientType,
                     Recipients = new List<Recipient>
                     {
                         new Recipient

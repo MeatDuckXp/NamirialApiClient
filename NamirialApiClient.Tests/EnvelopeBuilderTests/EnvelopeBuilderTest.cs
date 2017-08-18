@@ -12,6 +12,8 @@ namespace NamirialApiClient.Tests.EnvelopeBuilderTests
     [TestFixture]
     public class EnvelopeBuilderTest : NamirialClientTestBase
     {
+        #region Set up method
+
         [SetUp]
         public override void SetUp()
         {
@@ -31,6 +33,8 @@ namespace NamirialApiClient.Tests.EnvelopeBuilderTests
         private string _emailSubject;
         private string _emailBody;
         private int _daysTillExpires;
+
+        #endregion
 
         #region Envelope creation tests
 

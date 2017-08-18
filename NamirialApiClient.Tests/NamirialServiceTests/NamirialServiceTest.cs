@@ -6,25 +6,20 @@ namespace NamirialApiClient.Tests.NamirialServiceTests
     [TestFixture]
     public class NamirialServiceTest : NamirialClientTestBase
     {
+        private INamirialService _namirialService;
+
         [SetUp]
         public override void SetUp()
         {
             base.SetUp();
-        }
 
-        [OneTimeSetUp]
-        public void OneTimeSetUp()
-        {
+            _namirialService = new NamirialService(Configuration);
         }
-
-        [OneTimeTearDown]
-        public void OneTimeTearDown()
-        {
-        }
-
+   
         [Test]
         public void Test1()
         {
+            
         }
     }
 }

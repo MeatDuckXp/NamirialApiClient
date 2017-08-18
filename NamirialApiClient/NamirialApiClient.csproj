@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.EnterpriseServices" />
@@ -43,6 +44,7 @@
     <Compile Include="ApiCallResult.cs" />
     <Compile Include="Builders\EnvelopeBuilder.cs" />
     <Compile Include="Configuration\NamirialApiConfiguration.cs" />
+    <Compile Include="Configuration\NamirialApiConfigurationCreator.cs" />
     <Compile Include="Contracts\Actions\ClientAction.cs" />
     <Compile Include="Contracts\Actions\FinishAction.cs" />
     <Compile Include="Contracts\Actions\ServerAction.cs" />
