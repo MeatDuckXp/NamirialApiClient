@@ -55,10 +55,7 @@ namespace NamirialApiClient.Configuration
                 UserLoginName = GetConfiguration("UserLoginName", string.Empty),
                 DefaultDraftOptionAfterSendCallbackUrl = GetConfiguration("DefaultDraftOptionAfterSendCallbackUrl", string.Empty),
                 DefaultDraftOptionAfterSendRedirectUrl = GetConfiguration("DefaultDraftOptionAfterSendRedirectUrl", string.Empty),
-                DefaultRedirectPolicy = GetConfiguration("DefaultRedirectPolicy", string.Empty),
-                AppendEnvelopeIdToUrl = GetConfiguration("AppendEnvelopeIdToUrl", true),
-                AppendDraftIdToUrl = GetConfiguration("AppendDraftIdToUrl", true),
-                AppendActionChangedToUrl = GetConfiguration("AppendActionChangedToUrl", true),
+                DefaultRedirectPolicy = GetConfiguration("DefaultRedirectPolicy", string.Empty),  
                 DefaultEnvelopeCallbackUrl = GetConfiguration("DefaultEnvelopeCallbackUrl", string.Empty),
                 DefaultEnvelopeStatusUpdateCallbackUrl = GetConfiguration("DefaultEnvelopeStatusUpdateCallbackUrl", string.Empty),
                 ClientUrl = GetConfiguration("ClientUrl", string.Empty)
